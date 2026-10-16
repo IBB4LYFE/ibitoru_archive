@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#141719">
+  <meta name="description" content="TEENS RENEWED is a shared world for real conversation, live debate, and community.">
+  <title>TEENS RENEWED</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="room.css?v=2">
+</head>
+<body>
+  <main id="app" class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="TEENS RENEWED home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>TEENS RENEWED</span>
+      </a>
+      <div class="event-status"><span class="status-lamp"></span><span id="event-label">OFFICIAL EVENT · INACTIVE</span></div>
+      <div class="top-actions">
+        <span class="network-state"><i id="network-dot"></i><span id="network-label">Connecting</span></span>
+        <button class="manage-button" id="manage-button" type="button" hidden>Manage</button>
+        <a class="icon-button help-link" href="/guide.html" target="_blank" rel="noopener" title="Open controls guide" aria-label="Open controls guide">?</a>
+        <button class="icon-button" id="profile-button" type="button" title="Avatar settings" aria-label="Avatar settings">◉</button>
+        <button class="icon-button" id="logout-button" type="button" title="Sign out" aria-label="Sign out">↗</button>
+      </div>
+    </header>
+
+    <section class="auth-screen" id="auth-screen" aria-labelledby="welcome-title">
+      <div class="auth-art" aria-hidden="true">
+        <div class="sun-disc"></div><div class="art-grid"></div>
+        <div class="art-caption"><span>SHARED SPACE / 01</span><span>OPEN BY DESIGN</span></div>
+      </div>
+      <div class="auth-copy">
+        <p class="eyebrow">A WORLD FOR REAL CONVERSATION</p>
+        <h1 id="welcome-title">Pull up<br> a chair.</h1>
+        <p class="auth-intro">A shared room for people who want to think out loud, listen closely, and meet each other halfway.</p>
+        <form id="auth-form" class="auth-form">
+          <div class="auth-mode" role="group" aria-label="Account action">
+            <button type="button" class="mode-button is-active" data-mode="login">Sign in</button>
+            <button type="button" class="mode-button" data-mode="signup">Create account</button>
+          </div>
+          <button class="auth-switch" id="admin-entry" type="button">Are you an admin? <span>Admin sign-in ↗</span></button>
+          <label class="field-label" for="username">USERNAME</label>
+          <input id="username" name="username" required minlength="2" maxlength="24" autocomplete="username" placeholder="What should we call you?">
+          <label class="field-label" for="password">PASSWORD</label>
+          <input id="password" name="password" required minlength="10" maxlength="128" autocomplete="current-password" type="password" placeholder="10 characters or more">
+          <div class="signup-avatar" id="signup-avatar" hidden>
+            <label class="field-label" for="avatar-color">YOUR COLOR</label>
+            <div class="color-style-row"><input id="avatar-color" type="color" value="#ff5cad" aria-label="Avatar color"><select id="avatar-style" aria-label="Avatar style"><option value="sun">Star Sprinter</option><option value="leaf">Garden Buddy</option><option value="wave">Sound Surfer</option></select></div>
+          </div>
+          <button class="primary-button auth-submit" id="auth-submit" type="submit">Enter the room <span aria-hidden="true">↗</span></button>
+          <p class="form-message" id="auth-message" role="status"></p>
+          <p class="auth-footnote">New accounts wait for an admin to approve access. Your password is stored as a one-way hash.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="waiting-screen" id="waiting-screen" hidden>
+      <div class="waiting-mark" aria-hidden="true">◌</div>
+      <p class="eyebrow">A NOTE AT THE DOOR</p>
+      <h1 id="waiting-title">Your chair is<br>being saved.</h1>
+      <p id="waiting-copy">An admin needs to approve your account before you can enter the shared rooms.</p>
+      <button class="quiet-button" id="waiting-signout" type="button">Sign out</button>
+    </section>
+
+    <div class="room-layout" id="room-layout" hidden>
+      <aside class="sidebar">
+        <div class="sidebar-intro"><p class="eyebrow">THE HOUSE</p><span class="house-stamp">CR<br><small>01</small></span></div>
+        <div class="room-heading"><span>ROOMS</span><button class="tiny-icon" id="create-room-button" title="Create a discussion space" aria-label="Create a discussion space">+</button></div>
+        <nav id="room-list" class="room-list" aria-label="Community rooms"></nav>
+        <div class="sidebar-spacer"></div>
+        <section class="event-card" aria-label="Official event status">
+          <div class="event-card-top"><span class="eyebrow">TONIGHT'S GATHERING</span><span class="event-pip"></span></div>
+          <h2 id="event-card-title">The floor is yours.</h2>
+          <p id="event-card-copy">The official event has not started yet.</p>
+          <button class="text-button" id="event-button" type="button" hidden>Start the official event <span>↗</span></button>
+        </section>
+        <div class="account-chip"><span class="account-avatar" id="account-avatar">?</span><span class="account-label"><strong id="account-name">Guest</strong><small id="account-role">MEMBER</small></span><button id="account-menu" class="tiny-icon" type="button" title="Account options" aria-label="Account options">···</button></div>
+      </aside>
+
+      <section class="world-column" aria-label="Explore the room">
+        <div class="world-toolbar">
+          <div><p class="eyebrow" id="room-kicker">ROOM / THE LOUNGE</p><h2 id="room-title">The Lounge</h2></div>
+          <div class="world-tools"><span class="people-count"><span id="people-count">0</span> HERE</span><button class="quiet-button room-voice-button" id="voice-button" type="button" title="Join live voice chat">◖ Join voice</button><button class="mini-map-toggle" id="map-toggle" type="button" aria-pressed="false" title="Toggle map view" aria-label="Toggle map view">⌖</button></div>
+        </div>
+        <div class="world-wrap" id="world-wrap">
+          <canvas id="world-canvas" aria-label="Three-dimensional shared room. Use W A S D or arrow keys to move your avatar."></canvas>
+          <div class="world-overlay world-overlay-top"><span id="room-subtitle">A good place to begin.</span><span class="world-coordinate">WORLD 01 <i></i> LIVE</span></div>
+          <div class="world-overlay world-overlay-bottom"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> TO MOVE</span><span id="room-count">01 / 03</span></div>
+          <div class="world-toast" id="world-toast" role="status" hidden></div>
+        </div>
+        <div class="world-foot"><span id="room-description">A shared lounge for open conversation.</span><span>YOUR POSITION <b id="position-display">00 · 00</b></span></div>
+      </section>
+
+      <aside class="conversation-panel">
+        <div class="conversation-heading"><div><p class="eyebrow">ROOM CONVERSATION</p><h2 id="chat-title">The Lounge</h2></div><button class="tiny-icon" type="button" id="members-toggle" title="View people in this room" aria-label="View people in this room">♙</button></div>
+        <div class="members-strip" id="members-strip" aria-label="People in this room"></div>
+        <div class="chat-stream" id="chat-stream" role="log" aria-live="polite" aria-relevant="additions text"></div>
+        <form class="chat-form" id="chat-form">
+          <label class="sr-only" for="chat-input">Message this room</label>
+          <textarea id="chat-input" rows="1" maxlength="800" placeholder="Say something worth hearing…" required></textarea>
+          <div class="chat-form-bottom"><span><kbd>ENTER</kbd> TO SEND</span><div class="chat-actions"><button class="record-button" id="record-button" type="button" title="Record a short voice note" aria-label="Record a short voice note">●</button><button class="send-button" type="submit" title="Send message" aria-label="Send message">↗</button></div></div>
+        </form>
+        <div class="moderator-tools" id="moderator-tools" hidden></div>
+        <div class="admin-panel" id="admin-panel" hidden>
+          <div class="admin-heading"><span>HOUSE MANAGEMENT</span><button type="button" class="tiny-icon" id="admin-toggle" title="Close house management" aria-label="Close house management">×</button></div>
+          <div class="admin-tabs" role="tablist"><button type="button" class="admin-tab is-active" data-admin-tab="participants">People</button><button type="button" class="admin-tab" data-admin-tab="event">Event</button></div>
+          <div class="admin-content" id="admin-content"></div>
+        </div>
+      </aside>
+    </div>
+
+    <dialog class="profile-dialog" id="profile-dialog">
+      <form method="dialog" class="dialog-close-row"><button class="tiny-icon" aria-label="Close avatar settings">×</button></form>
+      <p class="eyebrow">YOUR PRESENCE</p><h2>Choose your look.</h2>
+      <label class="field-label" for="profile-color">AVATAR COLOR</label><div class="color-style-row"><input id="profile-color" type="color" value="#ff5cad" aria-label="Avatar color"><select id="profile-style" aria-label="Avatar style"><option value="sun">Star Sprinter</option><option value="leaf">Garden Buddy</option><option value="wave">Sound Surfer</option></select></div>
+      <button class="primary-button" id="save-profile" type="button">Save appearance <span>↗</span></button>
+    </dialog>
+    <dialog class="profile-dialog room-dialog" id="room-dialog">
+      <form method="dialog" class="dialog-close-row"><button class="tiny-icon" aria-label="Close new room dialog">×</button></form>
+      <p class="eyebrow">MAKE SPACE</p><h2>Start a discussion.</h2>
+      <form id="room-form">
+        <label class="field-label" for="room-name">ROOM NAME</label>
+        <input id="room-name" name="room-name" required minlength="3" maxlength="24" autocomplete="off" placeholder="Give your room a name">
+        <button class="primary-button" type="submit">Create discussion room <span>↗</span></button>
+      </form>
+    </dialog>
+  </main>
+  <script type="module" src="room.js?v=2"></script>
+</body>
+</html>

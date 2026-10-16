@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: teens-renewed
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    disk:
+      name: teens-renewed-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: TEENS_RENEWED_DATA
+        value: /var/data/teens-renewed.json
+      - key: TEENS_RENEWED_ADMIN
+        sync: false
+      - key: TEENS_RENEWED_ADMIN_PASSWORD
+        sync: false
